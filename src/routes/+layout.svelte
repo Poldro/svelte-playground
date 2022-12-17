@@ -3,7 +3,6 @@
 	import './styles.css';
 </script>
 
-<slot />
 <div class="app">
 	<Header />
 

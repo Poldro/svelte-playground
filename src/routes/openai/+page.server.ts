@@ -1,32 +1,29 @@
 import { error } from '@sveltejs/kit';
 
 import { Configuration, OpenAIApi } from "openai";
+import { OPENAI_API_KEY } from '$env/static/private'
+
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
-console.log(openai)
 
+/** @type {import('./$types').Actions} */
 export const actions = {
-	default: async (request: string) => {
+	default: async ({request}: any) => {
+    const data = await request.formData();
     const response = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `Extract keywords from this text:\n\n${request}`,
+      prompt: `Extract keywords from this text:\n\n${data.get('description')}`,
       temperature: 0.5,
       max_tokens: 60,
       top_p: 1.0,
       frequency_penalty: 0.8,
       presence_penalty: 0.0,
     });
-    return response
+    console.log(response.data)
+     return {success: true, response: response.data}
 	}
 };
 
-
- 
-/** @type {import('./$types').PageServerLoad} */
-export async function load() {
-
-
-}
