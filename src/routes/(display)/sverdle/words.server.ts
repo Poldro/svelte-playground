@@ -6029,7 +6029,7 @@ export const allowed = new Set([
 	'grans',
 	'grapy',
 	'gravs',
-	'grays',
+	'slates',
 	'grebe',
 	'grebo',
 	'grece',
