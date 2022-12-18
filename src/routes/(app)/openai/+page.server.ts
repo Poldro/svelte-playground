@@ -3,15 +3,17 @@ import { error } from '@sveltejs/kit';
 import { Configuration, OpenAIApi } from "openai";
 import { OPENAI_API_KEY } from '$env/static/private'
 
+export const prerender = true;
 
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
+
 /** @type {import('./$types').Actions} */
 export const actions = {
-	default: async ({request}: any) => {
+	openai_api: async ({request}: any) => {
     const data = await request.formData();
     const response = await openai.createCompletion({
       model: "text-davinci-003",

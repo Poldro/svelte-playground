@@ -2,16 +2,19 @@
 	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
 	import Chat from './Chat.svelte';
+	import TutorialChat from './TutorialChat.svelte';
 
 	export let form: ActionData;
+
 	let inputText = '';
-	console.log(form);
 
 	let chatData: any = [];
 
 	$: if (form) {
 		chatData = [...chatData, { question: form?.question, answer: form?.answer.choices[0].text }];
 	}
+
+
 </script>
 
 <svelte:head>
@@ -23,10 +26,17 @@
 	<!-- this message is ephemeral; it exists because the page was rendered in
        response to a form submission. it will vanish if the user reloads -->
 	<Chat data={chatData} />
+	{:else}
+	<TutorialChat />
 {/if}
 
 <div class="absolute bottom-0 left-0 w-full">
-	<form method="POST" use:enhance class="stretch mx-2 flex flex-row gap-3 pt-2 last:mb-2 md:last:mb-6 lg:mx-auto lg:max-w-3xl lg:pt-6">
+	<form
+		method="POST"
+		action="?/openai_api"
+		use:enhance
+		class="stretch mx-2 flex flex-row gap-3 pt-2 last:mb-2 md:last:mb-6 lg:mx-auto lg:max-w-3xl lg:pt-6"
+	>
 		<label
 			for="text-to-formulate-keywords-onr"
 			class="block text-sm font-medium text-slate-700 sr-only">Ask</label

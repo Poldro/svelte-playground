@@ -75,7 +75,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex flex-1 flex-col md:pl-64 h-screen">
+	<div class="flex flex-1 flex-col md:pl-64">
 		<div class="sticky top-0 z-10 bg-slate-800 pl-1 pt-1 sm:pl-3 sm:pt-3 md:hidden">
 			<button
 				on:click={() => visible = !visible}
@@ -101,8 +101,8 @@
 				</svg>
 			</button>
 		</div>
-		<main class="flex-1 bg-slate-800">
-				<div class="mx-auto max-w-7xl h-screen relative">
+		<main class="flex-1 bg-slate-800 w-full">
+				<div class="h-screen relative">
 					<!-- Children -->
 					<slot />
 				</div>
