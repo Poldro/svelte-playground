@@ -2,6 +2,7 @@
 #343541
 #444654 -->
 <script>
+	import "../../styles.css";
 	import { fade, fly } from 'svelte/transition';
 	let visible = false;
 
