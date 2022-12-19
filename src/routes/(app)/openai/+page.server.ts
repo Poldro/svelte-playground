@@ -1,9 +1,7 @@
-import { error } from '@sveltejs/kit';
-
 import { Configuration, OpenAIApi } from "openai";
 import { OPENAI_API_KEY } from '$env/static/private'
 
-export const prerender = true;
+/* export const prerender = true; */
 
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
