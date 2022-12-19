@@ -1,9 +1,8 @@
 <script>
 	import Header from './Header.svelte';
-	import './styles.css';
+	import '../styles.css';
 </script>
 
-<slot />
 <div class="app">
 	<Header />
 
@@ -12,7 +11,7 @@
 	</main>
 
 	<footer>
-		<p class="text-3xl font-bold underline">
+		<p class="mt-2 text-xl text-center font-bold underline">
 			visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit
 		</p>
 	</footer>
