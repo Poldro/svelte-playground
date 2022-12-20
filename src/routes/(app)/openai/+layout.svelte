@@ -1,11 +1,13 @@
-<!-- #202123
-#343541
-#444654 -->
-<script>
-	import "../../styles.css";
+<script lang="ts">
+	import '../../styles.css';
 	import { fade, fly } from 'svelte/transition';
-	let visible = false;
+	import { inputTextChat, chatData } from './store';
 
+	let visible: boolean = false;
+
+	function handleReset() {
+		($inputTextChat = ''), chatData.set([]);
+	}
 </script>
 
 <div class="text-slate-300">
@@ -21,7 +23,7 @@
 				>
 					<div class="absolute top-0 right-0 -mr-12 pt-2" transition:fade={{ duration: 300 }}>
 						<button
-							on:click={() => visible = !visible}
+							on:click={() => (visible = !visible)}
 							type="button"
 							class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
 						>
@@ -42,7 +44,26 @@
 					</div>
 
 					<div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
-						<nav class="mt-5 space-y-1 px-2">New thread button</nav>
+						<nav class="mt-5 space-y-1 px-2">
+							<button
+								on:click={handleReset}
+								type="reset"
+								class="w-full inline-flex items-center rounded-md border border-slate-500 px-4 py-3 text-sm font-medium text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:slate-indigo-500 focus:ring-offset-2"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="mr-2 -ml-1 h-5 w-5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+								>
+									<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+								</svg>
+
+								New Chat
+							</button>
+						</nav>
 					</div>
 
 					<div class="flex flex-shrink-0 p-4">
@@ -64,10 +85,26 @@
 		<!-- Sidebar component, swap this element with another sidebar if you like -->
 		<div class="flex min-h-0 flex-1 flex-col bg-neutral-900">
 			<div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
-
-				
 				<nav class="mt-5 flex-1 space-y-1 px-2">
-					<button >New thread button</button></nav>
+					<button
+						on:click={handleReset}
+						type="reset"
+						class="w-full inline-flex items-center rounded-md border border-slate-500 px-4 py-3 text-sm font-medium text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:slate-indigo-500 focus:ring-offset-2"
+					>
+						<!-- Heroicon name: mini/envelope -->
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="mr-2 -ml-1 h-5 w-5"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+						>
+							<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+						</svg>
+						New Chat
+					</button>
+				</nav>
 			</div>
 			<div class="flex flex-shrink-0 divide-slate-500 divide-y-2 p-4">
 				<a href="/" class="group block w-full flex-shrink-0">
@@ -79,7 +116,7 @@
 	<div class="flex flex-1 flex-col md:pl-64">
 		<div class="sticky top-0 z-10 bg-slate-800 pl-1 pt-1 sm:pl-3 sm:pt-3 md:hidden">
 			<button
-				on:click={() => visible = !visible}
+				on:click={() => (visible = !visible)}
 				type="button"
 				class="-ml-0.5 -mt-0.5 inline-flex h-12 w-12 items-center justify-center rounded-md text-slate-500 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
 			>
@@ -102,11 +139,11 @@
 				</svg>
 			</button>
 		</div>
-		<main class="flex-1 bg-slate-800 w-full">
-				<div class="h-screen relative">
-					<!-- Children -->
-					<slot />
-				</div>
+		<main class="flex-1 bg-slate-800 w-full -mt-12 md:my-0">
+			<div class="h-full relative ">
+				<!-- Children -->
+				<slot />
+			</div>
 		</main>
 	</div>
 </div>
