@@ -4,6 +4,25 @@
 	let photo1 = 'https://cataas.com/cat?type=siamese';
 	let photo2 = 'https://cataas.com/cat?type=persian';
 
+	function typewriter(node, { speed = 1 }) {
+		const valid = node.childNodes.length === 1 && node.childNodes[0].nodeType === Node.TEXT_NODE;
+
+		if (!valid) {
+			throw new Error(`This transition only works on elements with a single text node child`);
+		}
+
+		const text = node.textContent;
+		const duration = text.length / (speed * 0.01);
+
+		return {
+			duration,
+			tick: (t: number) => {
+				const i = ~~(text.length * t);
+				node.textContent = text.slice(0, i);
+			}
+		};
+	}
+
 	// Code written by ChatGPT
 	function scrollIntoView() {
 		const el = document.getElementById('scrollToBottom');
@@ -56,7 +75,7 @@
 							<div class="ml-3 md:ml-6">
 								<p class="text-sm font-medium">Keywords</p>
 								{#each createKeywordArray(answer) as i}
-									<li class="text-slate-400 list-disc ml-6">{i}</li>
+									<li class="text-slate-400 list-disc ml-6" transition:typewriter>{i}</li>
 								{/each}
 							</div>
 						</li>

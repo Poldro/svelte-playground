@@ -5,7 +5,9 @@
 	import { inputTextChat, chatData } from './store';
 
 	let formError = '';
-
+	$: if (!$inputTextChat.length) {
+		formError = '';
+	}
 </script>
 
 <svelte:head>
@@ -22,25 +24,29 @@
 <div class="w-full ">
 	<div class="absolute bottom-0 left-0 w-full">
 		{#if formError.length}<p class="text-red-800 text-center">{formError}</p>{/if}
-		{#if $chatData.length >= 3}<p class="text-red-800 text-center">Don't make more then 3 calls, please</p>{/if}
+		{#if $chatData.length >= 3}<p class="text-red-800 text-center">
+				Don't make more then 3 calls, please
+			</p>{/if}
 		<form
 			method="POST"
 			action="?/openai_api"
 			use:enhance={() => {
 				return async ({ result, update }) => {
-					console.log(result.type)
-					if (result.data.success) {
+					let data = result.data;
+					formError = '';
+					if (data.success) {
 						$chatData = [
 							...$chatData,
 							{
-								question: result.data.question ?? 'no question',
-								answer: result.data.answer.choices[0].text ?? 'no answer'
+								question: data.question ?? 'no question',
+								answer: data.answer.choices[0].text ?? 'no answer'
 							}
 						];
 					}
 					if (result.type === 'failure') {
-						formError = result.data.error;
+						formError = data.error;
 					}
+
 					update();
 				};
 			}}
