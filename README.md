@@ -14,22 +14,11 @@ Features
 
 Getting Started
 
-    Clone the repository: git clone https://github.com/[username]/keyword-chat.git
+    Clone the repository: git clone https://github.com/Poldro/first-ai-integration-project.git
     Install dependencies: npm install or yarn install
     Start the development server: npm run dev or yarn dev
-    Open the app in your browser: http://localhost:5000
+    Open the app in your browser: http://localhost:5173
 
-Deployment
-
-To build and deploy the app, run the following commands:
-
-    npm run build or yarn build
-    npm run export or yarn export
-
-This will create a production-ready build of the app in the /out directory, which you can then serve using your preferred static file server.
-Contributing
-
-If you'd like to contribute to the development of this app, please read the CONTRIBUTING.md file for details on how to get involved.
 License
 
 This project is licensed under the MIT license.

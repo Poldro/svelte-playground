@@ -4,14 +4,14 @@
 	let photo1 = 'https://cataas.com/cat?type=siamese';
 	let photo2 = 'https://cataas.com/cat?type=persian';
 
+	// Code written by ChatGPT
 	function scrollIntoView() {
-		const el = document.getElementById("scrollToBottom");
-		console.log(el)
+		const el = document.getElementById('scrollToBottom');
 		if (!el) return;
-		el.scrollIntoView(true);
+		el.scrollIntoView({
+			behavior: 'smooth'
+		});
 	}
-
-	$: console.log($chatData);
 
 	$: $chatData, scrollIntoView();
 

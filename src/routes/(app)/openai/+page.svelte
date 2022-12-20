@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
 	import Chat from './Chat.svelte';
 	import TutorialChat from './TutorialChat.svelte';
 	import { inputTextChat, chatData } from './store';
 
-	export let form: ActionData;
+	let formError = '';
+
 </script>
 
 <svelte:head>
@@ -21,21 +21,27 @@
 
 <div class="w-full ">
 	<div class="absolute bottom-0 left-0 w-full">
-		{#if form?.incorrect}<p class="text-red-800 text-center">{form.error}</p>{/if}
+		{#if formError.length}<p class="text-red-800 text-center">{formError}</p>{/if}
+		{#if $chatData.length >= 3}<p class="text-red-800 text-center">Don't make more then 3 calls, please</p>{/if}
 		<form
 			method="POST"
 			action="?/openai_api"
 			use:enhance={() => {
-				return async ({ result }) => {
+				return async ({ result, update }) => {
+					console.log(result.type)
 					if (result.data.success) {
 						$chatData = [
 							...$chatData,
 							{
 								question: result.data.question ?? 'no question',
-								answer: result.data.answer.choices[0].text ?? 'no answer'
+								answer: result.data.answer ?? 'no answer'
 							}
 						];
 					}
+					if (result.type === 'failure') {
+						formError = result.data.error;
+					}
+					update();
 				};
 			}}
 			class="stretch mx-2 flex flex-row gap-3 pt-2 last:mb-2 md:last:mb-6 lg:mx-auto lg:max-w-3xl lg:pt-6"
@@ -56,7 +62,11 @@
 					style="max-height:400px"
 				/>
 
-				<button disabled={$chatData.length >= 3} type="submit" class="absolute inset-y-0 right-0 flex items-center pr-3 ">
+				<button
+					disabled={$chatData.length >= 3}
+					type="submit"
+					class="absolute inset-y-0 right-0 flex items-center pr-3 "
+				>
 					<!-- Heroicon name: mini/question-mark-circle -->
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
