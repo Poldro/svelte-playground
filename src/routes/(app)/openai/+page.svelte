@@ -34,7 +34,7 @@
 							...$chatData,
 							{
 								question: result.data.question ?? 'no question',
-								answer: result.data.answer ?? 'no answer'
+								answer: result.data.answer.choices[0].text ?? 'no answer'
 							}
 						];
 					}

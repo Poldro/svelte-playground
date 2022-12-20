@@ -22,9 +22,8 @@ export const actions = {
     if (data.get('text-to-formulate-keywords-on').length < 50) {
       return fail(400, { error: "Inserisci un minimo di 50 caratteri", incorrect: true });
     }
-    return { success: true, question: data.get('text-to-formulate-keywords-on'), answer: "helloooooooo"}
 
-  /*   const response = await openai.createCompletion({
+    const response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: `Extract keywords from this text:\n\n${data.get('text-to-formulate-keywords-on')}`,
       temperature: 0.5,
@@ -34,6 +33,6 @@ export const actions = {
       presence_penalty: 0.0,
     }); 
     return { success: true, question: data.get('text-to-formulate-keywords-on'), answer: response.data }
-   */}
+   }
 };
 
