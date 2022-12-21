@@ -139,7 +139,7 @@
 				</svg>
 			</button>
 		</div>
-		<main class="flex-1 bg-slate-800 w-full -mt-12 md:my-0">
+		<main class="flex-1 bg-slate-800 w-full  h-screen -mt-12 md:my-0">
 			<div class="h-full relative ">
 				<!-- Children -->
 				<slot />

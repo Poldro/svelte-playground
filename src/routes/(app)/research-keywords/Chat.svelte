@@ -7,7 +7,7 @@
 
 	let messageContainerRef1: HTMLDivElement;
 	let messageContainerRef2: HTMLDivElement;
-	let containerRef;
+	let containerRef: HTMLDivElement;;
 	function typewriter(node, { speed = 1 }) {
 		const valid = node.childNodes.length === 1 && node.childNodes[0].nodeType === Node.TEXT_NODE;
 
@@ -27,13 +27,14 @@
 		};
 	}
 
-	function scrollToEnd() {
-		if (messageContainerRef1 && messageContainerRef2) {
+
+
+/* 		if (messageContainerRef1 && messageContainerRef2) {
 			let sum = messageContainerRef1.scrollHeight + messageContainerRef2.scrollHeight;
 			console.log(sum)
 			containerRef.scrollTo({ top: sum, left: 0, behavior: 'smooth' });
-		}
-	}
+		} */
+
 
 	// Code written by ChatGPT
 	function scrollIntoView() {
@@ -44,8 +45,15 @@
 		});
 	}
 
-	$: $chatData, scrollToEnd();
+	 $: $chatData, scrollToEnd(); 
 
+	 function scrollToEnd() {
+		if(containerRef){
+
+			containerRef.scrollTop = containerRef.scrollHeight;
+	
+		}
+	}
 	// function written by ChatGPT
 	function createKeywordArray(string: string) {
 		// Find the index of the colon character
@@ -59,14 +67,15 @@
 	}
 </script>
 
-<div class="max-h-screen h-screen bg-slate-800">
+<div class="max-h-screen h-screen bg-slate-800" 	>
+	<button on:click={scrollToEnd}>scroll</button>
 	<div
 	bind:this={containerRef}
-		class="w-full flex justify-center max-h-screen overflow-y-scroll pt-12 md:pt-6 overflow-hidden"
+		class="w-full flex justify-center h-full overflow-y-scroll pt-12 md:pt-6"
 	>
-		<ul class="w-full">
+		<ul class="w-full ">
 			{#each $chatData as { question, answer }}
-				<div class="flex justify-center w-full bg-slate-800" bind:this={messageContainerRef1}>
+				<div class="flex justify-center w-full bg-slate-800">
 					<div class="flex-grow overflow-auto max-w-2xl p-4 w-full h-full py-1">
 						<li class="flex py-4">
 							<img
@@ -81,7 +90,7 @@
 						</li>
 					</div>
 				</div>
-				<div class="flex justify-center w-full bg-slate-900" bind:this={messageContainerRef2}>
+				<div class="flex justify-center w-full bg-slate-900">
 					<div class="flex-grow overflow-auto max-w-2xl p-4 w-full h-full py-1">
 						<li style="min-height: 100%;" class="w-full chat-messages overflow-auto flex py-4">
 							<img class="h-16 w-16 md:h-24 md:w-24 rounded-full" src={photo2} alt="a random cat" />

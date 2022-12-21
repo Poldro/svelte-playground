@@ -9,6 +9,14 @@
 		formError = '';
 	}
 	
+	
+	function scrollToEnd(ref) {
+		if(ref){
+			ref.scrollTop = ref.scrollHeight;
+		}
+	}
+
+	let containerRef: HTMLDivElement;
 </script>
 
 <svelte:head>
@@ -17,7 +25,7 @@
 </svelte:head>
 
 {#if $chatData.length}
-	<Chat />
+	<Chat on:scroll={scrollToEnd} />
 {:else}
 	<TutorialChat />
 {/if}
@@ -40,7 +48,8 @@
 							...$chatData,
 							{
 								question: data.question ?? 'no question',
-								answer: data.answer.choices[0].text ?? 'no answer'
+								answer: data.answer ?? 'no answer'
+								/* answer: data.answer.choices[0].text ?? 'no answer' */
 							}
 						];
 					}
@@ -48,9 +57,10 @@
 						formError = data.error;
 					}
 					update();
+					scrollToEnd(containerRef)
 				};
 			}}
-			class="stretch mx-2 flex flex-row gap-3 pt-2 last:mb-2 md:last:mb-6 lg:mx-auto lg:max-w-3xl lg:pt-6"
+			class="stretch mx-2 md:mx-6 flex flex-row gap-3 pt-2 last:mb-2 md:last:mb-6 lg:mx-auto lg:max-w-3xl lg:pt-6"
 		>
 			<label
 				for="text-to-formulate-keywords-onr"

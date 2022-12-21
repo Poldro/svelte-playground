@@ -22,6 +22,7 @@ export const actions = {
     if (data.get('text-to-formulate-keywords-on').length < 50) {
       return fail(400, { error: "Inserisci un minimo di 50 caratteri", incorrect: true });
     }
+    return { success: true, question: data.get('text-to-formulate-keywords-on'), answer:" response.data" }
 
     const response = await openai.createCompletion({
       model: "text-davinci-003",
