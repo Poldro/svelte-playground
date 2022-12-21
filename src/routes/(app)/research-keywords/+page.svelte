@@ -8,6 +8,7 @@
 	$: if (!$inputTextChat.length) {
 		formError = '';
 	}
+	
 </script>
 
 <svelte:head>
@@ -46,7 +47,6 @@
 					if (result.type === 'failure') {
 						formError = data.error;
 					}
-
 					update();
 				};
 			}}

@@ -31,8 +31,8 @@ export const actions = {
       top_p: 1.0,
       frequency_penalty: 0.8,
       presence_penalty: 0.0,
-    }); 
+    });
     return { success: true, question: data.get('text-to-formulate-keywords-on'), answer: response.data }
-   }
+  }
 };
 
