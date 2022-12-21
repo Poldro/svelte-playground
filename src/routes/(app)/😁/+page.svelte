@@ -4,60 +4,53 @@
 	import TutorialChat from './TutorialChat.svelte';
 	import { inputTextChat, chatData } from './store';
 
-	let formError = '';
-	$: if (!$inputTextChat.length) {
-		formError = '';
-	}
-	
-	
-	function scrollToEnd(ref) {
-		if(ref){
-			ref.scrollTop = ref.scrollHeight;
-		}
-	}
-
-	let containerRef: HTMLDivElement;
+	let isLoading:boolean= false;
+	$: successMessages = $chatData.filter((i) => i.type === 'success');
 </script>
 
 <svelte:head>
-	<title>ChatGPT</title>
+	<title>Research Keywords</title>
 	<meta name="description" content="A ChatGPT clone written in SvelteKit" />
 </svelte:head>
 
+
 {#if $chatData.length}
-	<Chat on:scroll={scrollToEnd} />
+	<Chat successMessages={successMessages}/>
 {:else}
 	<TutorialChat />
 {/if}
 
 <div class="w-full ">
 	<div class="absolute bottom-0 left-0 w-full">
-		{#if formError.length}<p class="text-red-800 text-center">{formError}</p>{/if}
-		{#if $chatData.length >= 3}<p class="text-red-800 text-center">
-				Don't make more then 3 calls, please
-			</p>{/if}
 		<form
 			method="POST"
 			action="?/openai_api"
 			use:enhance={() => {
+				isLoading = true
 				return async ({ result, update }) => {
-					let data = result.data;
-					formError = '';
-					if (data.success) {
+					if (result.type === 'success' && result.data) {
 						$chatData = [
 							...$chatData,
 							{
-								question: data.question ?? 'no question',
-								answer: data.answer ?? 'no answer'
+								question: result.data.question ?? 'no question',
+								answer: result.data.answer.choices[0].text ?? 'no answer',
+								type: 'success'
 								/* answer: data.answer.choices[0].text ?? 'no answer' */
 							}
 						];
 					}
-					if (result.type === 'failure') {
-						formError = data.error;
+					if (result.type === 'failure' && result.data) {
+						$chatData = [
+							...$chatData,
+							{
+								question: result.data.question ?? 'no question',
+								answer: result.data.error ?? 'generic error',
+								type: 'failure'
+							}
+						];
 					}
 					update();
-					scrollToEnd(containerRef)
+					isLoading = false
 				};
 			}}
 			class="stretch mx-2 md:mx-6 flex flex-row gap-3 pt-2 last:mb-2 md:last:mb-6 lg:mx-auto lg:max-w-3xl lg:pt-6"
@@ -77,9 +70,9 @@
 					placeholder="Insert your text and click the button"
 					style="max-height:400px"
 				/>
-
+				{#if !isLoading}
 				<button
-					disabled={$chatData.length >= 3}
+					disabled={successMessages.length >= 3}
 					type="submit"
 					class="absolute inset-y-0 right-0 flex items-center pr-3 "
 				>
@@ -95,6 +88,10 @@
 						/>
 					</svg>
 				</button>
+				{:else}
+				<p class="text-slate-500 text-sm">Loading</p>
+				{/if}
+				
 			</div>
 		</form>
 	</div>

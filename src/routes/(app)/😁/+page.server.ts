@@ -16,13 +16,12 @@ export const actions = {
     const data = await request.formData();
 
     if (data.get('text-to-formulate-keywords-on').length > 2500) {
-      return fail(400, { error: "Inserisci un massimo di 2500 caratteri", incorrect: true });
+      return fail(400, { question: data.get('text-to-formulate-keywords-on'), error: "Inserisci un massimo di 2500 caratteri", incorrect: true });
     }
 
     if (data.get('text-to-formulate-keywords-on').length < 50) {
-      return fail(400, { error: "Inserisci un minimo di 50 caratteri", incorrect: true });
+      return fail(400, { question: data.get('text-to-formulate-keywords-on'), error: "Inserisci un minimo di 50 caratteri", incorrect: true });
     }
-    return { success: true, question: data.get('text-to-formulate-keywords-on'), answer:" response.data" }
 
     const response = await openai.createCompletion({
       model: "text-davinci-003",
