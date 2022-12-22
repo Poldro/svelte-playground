@@ -27,7 +27,7 @@ export const actions = {
       model: "text-davinci-003",
       prompt: `Extract keywords from this text:\n\n${data.get('text-to-formulate-keywords-on')}`,
       temperature: 0.5,
-      max_tokens: 30,
+      max_tokens: 50,
       top_p: 1.0,
       frequency_penalty: 0.8,
       presence_penalty: 0.0,

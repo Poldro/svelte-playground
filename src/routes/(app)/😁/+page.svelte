@@ -4,7 +4,7 @@
 	import TutorialChat from './TutorialChat.svelte';
 	import { inputTextChat, chatData } from './store';
 
-	let isLoading:boolean= false;
+	let isLoading: boolean = false;
 	$: successMessages = $chatData.filter((i) => i.type === 'success');
 </script>
 
@@ -13,9 +13,8 @@
 	<meta name="description" content="A ChatGPT clone written in SvelteKit" />
 </svelte:head>
 
-
 {#if $chatData.length}
-	<Chat successMessages={successMessages}/>
+	<Chat {successMessages} />
 {:else}
 	<TutorialChat />
 {/if}
@@ -26,7 +25,7 @@
 			method="POST"
 			action="?/openai_api"
 			use:enhance={() => {
-				isLoading = true
+				isLoading = true;
 				return async ({ result, update }) => {
 					if (result.type === 'success' && result.data) {
 						$chatData = [
@@ -35,7 +34,6 @@
 								question: result.data.question ?? 'no question',
 								answer: result.data.answer.choices[0].text ?? 'no answer',
 								type: 'success'
-								/* answer: data.answer.choices[0].text ?? 'no answer' */
 							}
 						];
 					}
@@ -50,7 +48,7 @@
 						];
 					}
 					update();
-					isLoading = false
+					isLoading = false;
 				};
 			}}
 			class="stretch mx-2 md:mx-6 flex flex-row gap-3 pt-2 last:mb-2 md:last:mb-6 lg:mx-auto lg:max-w-3xl lg:pt-6"
@@ -71,27 +69,26 @@
 					style="max-height:400px"
 				/>
 				{#if !isLoading}
-				<button
-					disabled={successMessages.length >= 3}
-					type="submit"
-					class="absolute inset-y-0 right-0 flex items-center pr-3 "
-				>
-					<!-- Heroicon name: mini/question-mark-circle -->
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="currentColor"
-						class="w-6 h-6 text-slate-500 hover:text-slate-800"
+					<button
+						disabled={successMessages.length >= 3}
+						type="submit"
+						class="absolute inset-y-0 right-0 flex items-center pr-3 "
 					>
-						<path
-							d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
-						/>
-					</svg>
-				</button>
+						<!-- Heroicon name: mini/question-mark-circle -->
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="currentColor"
+							class="w-6 h-6 text-slate-500 hover:text-slate-800"
+						>
+							<path
+								d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
+							/>
+						</svg>
+					</button>
 				{:else}
-				<p class="text-slate-500 text-sm">Loading</p>
+					<p class="absolute inset-y-0 right-0 text-slate-500 text-sm">Loading</p>
 				{/if}
-				
 			</div>
 		</form>
 	</div>

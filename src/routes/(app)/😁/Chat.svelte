@@ -99,7 +99,7 @@
 					</div>
 				</div>
 			{/each}
-			{#if successMessages.length >= 3}<p class="text-red-800 text-center py-6">
+			{#if successMessages.length >= 3}<p class="text-red-400 text-center py-6">
 					Don't make more then 3 calls, please
 				</p>
 			{/if}
