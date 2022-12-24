@@ -37,6 +37,7 @@
 	"type": "module",
 	"dependencies": {
 		"@tailwindcss/forms": "^0.5.3",
+		"newsapi": "^2.4.1",
 		"openai": "^3.1.0"
 	}
 }
