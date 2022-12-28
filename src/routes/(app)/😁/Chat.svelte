@@ -38,17 +38,7 @@
 		};
 	}
 
-	// function written by ChatGPT
-	function createKeywordArray(string: string) {
-		// Find the index of the colon character
-		const colonIndex = string.indexOf(':');
-		// Extract the part of the string after the colon
-		const keywordsString = string.substring(colonIndex + 1);
-		// Split the string into an array of words
-		const keywordArray = keywordsString.split(',');
-		// Trim any leading or trailing whitespace from the words
-		return keywordArray.map((word) => word.trim());
-	}
+
 </script>
 
 <div class="max-h-screen h-screen bg-slate-800">
@@ -83,7 +73,7 @@
 								/>
 								<div class="ml-3 md:ml-6">
 									<p class="text-sm font-medium">Keywords</p>
-									{#each createKeywordArray(answer) as i}
+									{#each answer as i}
 										<li
 											in:typewriter
 											class={type === 'failure'
@@ -99,7 +89,7 @@
 					</div>
 				</div>
 			{/each}
-			{#if successMessages.length >= 3}<p class="text-red-800 text-center py-6">
+			{#if successMessages.length >= 3}<p class="text-red-400 text-center py-6">
 					Don't make more then 3 calls, please
 				</p>
 			{/if}

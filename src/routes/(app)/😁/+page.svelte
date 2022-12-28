@@ -6,6 +6,18 @@
 
 	let isLoading: boolean = false;
 	$: successMessages = $chatData.filter((i) => i.type === 'success');
+
+		// function written by ChatGPT
+		function createKeywordArray(string: string) {
+		// Find the index of the colon character
+		const colonIndex = string.indexOf(':');
+		// Extract the part of the string after the colon
+		const keywordsString = string.substring(colonIndex + 1);
+		// Split the string into an array of words
+		const keywordArray = keywordsString.split(',');
+		// Trim any leading or trailing whitespace from the words
+		return keywordArray.map((word) => word.trim());
+	}
 </script>
 
 <svelte:head>
@@ -32,7 +44,7 @@
 							...$chatData,
 							{
 								question: result.data.question ?? 'no question',
-								answer: result.data.answer.choices[0].text ?? 'no answer',
+								answer: createKeywordArray(result.data.answer.choices[0].text) ?? ['no answer'],
 								type: 'success'
 							}
 						];
@@ -42,7 +54,7 @@
 							...$chatData,
 							{
 								question: result.data.question ?? 'no question',
-								answer: result.data.error ?? 'generic error',
+								answer: [result.data.error] ?? ['generic error'],
 								type: 'failure'
 							}
 						];
@@ -87,7 +99,9 @@
 						</svg>
 					</button>
 				{:else}
-					<p class="text-slate-500 text-sm">Loading</p>
+
+					<p class="absolute inset-y-0 right-0 text-slate-500 text-sm">Loading</p>
+
 				{/if}
 			</div>
 		</form>
