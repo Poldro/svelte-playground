@@ -99,7 +99,9 @@
 						</svg>
 					</button>
 				{:else}
+
 					<p class="absolute inset-y-0 right-0 text-slate-500 text-sm">Loading</p>
+
 				{/if}
 			</div>
 		</form>
