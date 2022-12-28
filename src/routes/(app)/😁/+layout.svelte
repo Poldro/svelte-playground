@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '../../styles.css';
 	import { fade, fly } from 'svelte/transition';
 	import { inputTextChat, chatData } from './store';
 
@@ -7,7 +6,7 @@
 
 	function handleReset() {
 		($inputTextChat = ''), chatData.set([]);
-	}
+	}	
 </script>
 
 <div class="text-slate-300">

@@ -1,23 +1,9 @@
-<style>
-    .container {
-      height: h-screen;
-    }
-  
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1;
-    }
-  
-  </style>
-  
-  <div class="container">
-    <nav class="navbar bg-gray-800 shadow-md py-4">
-      <!-- navbar content goes here -->
-      hello
-    </nav>
-    <slot />
-  </div>
-  
+<div class="flex justify-center bg-yellow-50 h-screen">
+	<nav class="fixed top-0 w-full z-10 shadow-md py-4 h-16 bg-yellow-50">
+		<!-- navbar content goes here -->
+		navbar
+	</nav>
+	<div class="w-full mt-16 max-w-4xl">
+		<slot />
+	</div>
+</div>

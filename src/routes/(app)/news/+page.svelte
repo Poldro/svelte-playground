@@ -1,14 +1,7 @@
-<script lang='ts'>
+<!-- <script lang='ts'>
     import type { PageData } from './$types';
   
     export let data: PageData;
-  
-    let countries = data.defaultCountry;
-    $: if (countries) {
-      countries = data.defaultCountry;
-    }
-
-    $: console.log(countries)
   </script>
   
 
@@ -24,4 +17,4 @@
         </li>
     {/each}
 </ul>
-{/if}
+{/if} -->
