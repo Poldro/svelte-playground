@@ -67,7 +67,7 @@
 					</div>
 
 					<div class="flex flex-shrink-0 p-4">
-						<a href="/" class="group block flex-shrink-0">
+						<a href="https://poldro.eu" class="group block flex-shrink-0">
 							<p class="text-base font-medium text-white">Home</p>
 						</a>
 					</div>
@@ -107,7 +107,7 @@
 				</nav>
 			</div>
 			<div class="flex flex-shrink-0 divide-slate-500 divide-y-2 p-4">
-				<a href="/" class="group block w-full flex-shrink-0">
+				<a href="https://poldro.eu" class="group block w-full flex-shrink-0">
 					<p class="text-base font-medium text-white">Home</p>
 				</a>
 			</div>
